@@ -1,0 +1,209 @@
+﻿<UserControl x:Class="MustafaCol.View.StudentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MustafaCol.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="520">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40 "/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            
+        </Grid.RowDefinitions>
+        <TextBlock Text="CTIS Student Representative Elections"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   FontSize="25"
+                   FontWeight="BOLD"
+                   HorizontalAlignment="Center"
+                   />
+        <TextBlock Text="Enter Student ID"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    FontSize="15"
+                    VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Margin="10,0,10,0"
+                   />
+        <TextBlock Text="Enter FullName"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    FontSize="15"
+                    Margin="10,0,10,0"
+                    VerticalAlignment="Center"
+                   HorizontalAlignment="Right"/>
+        <TextBlock Text="Enter Grade"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    FontSize="15"
+                    Margin="10,0,10,0"
+                    VerticalAlignment="Center"
+                   HorizontalAlignment="Right"/>
+
+        <TextBox Name="studentIdTxt"
+                 Grid.Row="1"
+                 Grid.Column="1"
+                 FontSize="16"
+                 VerticalAlignment="Center"
+                 Margin="10,5,0,5" Padding="5,0,0,0"
+                 Text="{Binding Path=CurrentStudent.StudentId, Mode=TwoWay}"/>
+        <TextBox Name="studentNameTxt"
+                 Grid.Row="2"
+                 Grid.Column="1"
+                 VerticalAlignment="Center"
+                 FontSize="16"
+                 Margin="10,5,0,5" Padding="5,0,0,0"
+                 Text="{Binding Path=CurrentStudent.FullName, Mode=TwoWay}"
+                 />
+        <TextBox Name="studentGradeTxt"
+                 Grid.Row="3"
+                 Grid.Column="1"
+                 VerticalAlignment="Center"
+                 FontSize="16"
+                 Margin="10,5,0,5"
+                 Padding="5,0,0,0"
+                 Text="{Binding Path=CurrentStudent.Grade, Mode=TwoWay}"/>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="4"
+                    Grid.ColumnSpan="2">
+
+            <Button 
+                Margin="0,5,10,5" 
+                Name="btnAdd" 
+                Content="Add Student"
+                Padding="2" 
+                Command="{Binding Path=AddCommand}"
+                Background="LightGoldenrodYellow"
+                >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button 
+                Margin="10,5,10,5" 
+                Name="btnSearch" 
+                Content="Search Student" 
+                Padding="2"
+                Background="LightGoldenrodYellow"
+                Command="{Binding Path=FindCommand}"
+                >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button 
+                Margin="10,5,10,5" 
+                Name="btnUpdate" 
+                Content="Update Student" 
+                Padding="2"
+                Background="LightGoldenrodYellow"
+                Command="{Binding Path=UpdateCommand}"
+                >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button 
+                Margin="10,5,10,5" 
+                Name="btnDelete" 
+                Content="Delete Student" 
+                Padding="2"
+                Background="LightGoldenrodYellow"
+                Command="{Binding Path=DeleteCommand}"
+            >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button 
+                Margin="10,5,10,5" 
+                Name="btnVote" 
+                Content="Vote Student" 
+                Padding="2"
+                Background="LightGoldenrodYellow"
+                Command="{Binding Path=VoteCommand}"
+                >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+        </StackPanel>
+
+        <TextBlock Name="txtBlockMessage"
+                   Grid.Row="5" 
+                   Grid.Column="1" Margin="5"
+                   Text="{Binding Path=Message}"/>
+
+        <DataGrid Name="dgStudents" 
+                  AutoGenerateColumns="False"
+                  Grid.Row="6"
+                  Grid.Column="1" 
+                  Margin="5,8"
+                  ItemsSource="{Binding Path=StuList, Mode=TwoWay}"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Header="Student Id"
+                    IsReadOnly="True"
+                    Width="1*"
+                    Binding="{Binding Path=StudentId}"/>
+                <DataGridTextColumn
+                    Header="Student Name"
+                    IsReadOnly="True"
+                    Width="1*"
+                    Binding="{Binding Path=FullName}"/>
+                <DataGridTextColumn
+                    Header="Student Grade"
+                    IsReadOnly="True"
+                    Width="1*"
+                    Binding="{Binding Path=Grade}"/>
+                <DataGridTextColumn
+                    Header="# of Votes"
+                    IsReadOnly="True"
+                    Width="1*"
+                    Binding="{Binding Path=NumberOfVotes}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button
+            Grid.Column="0"
+            Grid.Row="6"
+            Content="Complete Election"
+            Margin="5" 
+            Height="40"
+            Command="{Binding Path=CompleteElectionCommand}"
+            Background="DarkSeaGreen"
+            >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+
+        </Button>
+    </Grid>
+</UserControl>
